@@ -5,12 +5,14 @@
   <title>ServerForge — Coming Soon</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+
     body {
       margin: 0;
       background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
       color: #00ff99;
       font-family: 'Orbitron', sans-serif;
     }
+
     nav {
       background: #0a1a1f;
       padding: 1em 2em;
@@ -22,6 +24,7 @@
       top: 0;
       z-index: 100;
     }
+
     nav a {
       color: #00ff99;
       text-decoration: none;
@@ -31,28 +34,33 @@
       border-radius: 5px;
       transition: background-color 0.3s ease;
     }
+
     nav a:hover {
       background: #00ff99;
       color: #0f2027;
       box-shadow: 0 0 10px #00ff99;
     }
+
     main {
       max-width: 900px;
       margin: 2em auto;
       padding: 0 1em;
       text-align: center;
     }
+
     h1 {
       font-size: 4rem;
       margin-bottom: 0.3em;
       text-shadow: 0 0 10px #00ff99, 0 0 20px #00ff99;
     }
+
     p {
       font-size: 1.5rem;
       margin-top: 0;
       margin-bottom: 1.5em;
       text-shadow: 0 0 8px #00ff99;
     }
+
     .categories {
       display: flex;
       flex-wrap: wrap;
@@ -60,6 +68,7 @@
       gap: 1em;
       margin-top: 2em;
     }
+
     .category {
       background: #0a1a1f;
       padding: 1em 1.5em;
@@ -70,16 +79,19 @@
       transition: background-color 0.3s ease;
       user-select: none;
     }
+
     .category:hover {
       background: #00ff99;
       color: #0f2027;
       box-shadow: 0 0 15px #00ff99;
     }
+
     .category.active {
       background: #00ff99;
       color: #0f2027;
       box-shadow: 0 0 20px #00ff99;
     }
+
     a.join-discord {
       display: inline-block;
       margin-top: 2em;
@@ -93,42 +105,95 @@
       transition: all 0.3s ease;
       box-shadow: 0 0 8px #00ff99;
     }
+
     a.join-discord:hover {
       background-color: #00ff99;
       color: #0f2027;
       box-shadow: 0 0 20px #00ff99;
     }
+
     section#top-ranked,
     section#top-ranked-overall {
       margin-top: 3em;
       text-align: left;
-      max-width: 600px;
+      max-width: 900px;
       margin-left: auto;
       margin-right: auto;
     }
+
     section#top-ranked h2,
     section#top-ranked-overall h2 {
       text-shadow: 0 0 8px #00ff99;
       font-weight: 700;
+      margin-bottom: 1em;
+      text-align: center;
     }
-    ol {
+
+    /* Server cards styles */
+    .server-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5em;
+      max-width: 900px;
+      margin: 0 auto 4em;
+    }
+
+    .server-card {
+      background: #0a1a1f;
+      border-radius: 12px;
+      box-shadow: 0 0 15px #00ff99aa;
+      padding: 1.5em;
       color: #00ff99;
       font-weight: 700;
-      padding-left: 1.2em;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
     }
-    ol li {
-      margin: 0.8em 0;
+
+    .server-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px #00ff99ff;
     }
-    ol li a {
-      color: #00ff99;
-      text-decoration: underline;
-    }
-    ol li a:hover {
+
+    .server-rank {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: #00ff99;
       color: #0f2027;
-      background-color: #00ff99;
-      border-radius: 4px;
-      padding: 0 4px;
+      font-weight: 900;
+      font-size: 1.1rem;
+      padding: 0.25em 0.7em;
+      border-radius: 8px;
+      box-shadow: 0 0 8px #00ff99;
+    }
+
+    .server-name {
+      font-size: 1.5rem;
+      margin-bottom: 0.5em;
+    }
+
+    .server-desc {
+      font-weight: 400;
+      margin-bottom: 1.2em;
+      font-size: 1rem;
+      min-height: 48px;
+    }
+
+    .join-btn {
+      display: inline-block;
+      background: #00ff99;
+      color: #0f2027;
+      font-weight: 700;
+      padding: 0.6em 1.5em;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 0 12px #00ff99;
       transition: background-color 0.3s ease;
+    }
+
+    .join-btn:hover {
+      background-color: #00cc77;
     }
   </style>
 </head>
@@ -139,6 +204,7 @@
     <a href="#top-ranked">Top Ranked FPS</a>
     <a href="#top-ranked-overall">Top Ranked Overall</a>
   </nav>
+
   <main>
     <h1>ServerForge</h1>
     <p>Find and build elite gaming Discord servers.<br />
@@ -153,161 +219,75 @@
 
     <section id="top-ranked">
       <h2>🔥 Top Ranked FPS Servers</h2>
-      <ol>
-        <li>
-          <strong>Valorant Official</strong> — Rank #1<br />
-          <a href="https://discord.gg/valorant" target="_blank" rel="noopener noreferrer">Join Discord</a>
-        </li>
-        <li>
-          <strong>Call of Duty Community</strong> — Rank #2<br />
-          <a href="https://discord.gg/callofduty" target="_blank" rel="noopener noreferrer">Join Discord</a>
-        </li>
-        <li>
-          <strong>Rainbow Six Siege</strong> — Rank #3<br />
-          <a href="https://discord.gg/r6siege" target="_blank" rel="noopener noreferrer">Join Discord</a>
-        </li>
-        <li>
-          <strong>Apex Legends</strong> — Rank #4<br />
-          <a href="https://discord.gg/apexlegends" target="_blank" rel="noopener noreferrer">Join Discord</a>
-        </li>
-        <li>
-          <strong>CS:GO Lounge</strong> — Rank #5<br />
-          <a href="https://discord.gg/csgo" target="_blank" rel="noopener noreferrer">Join Discord</a>
-        </li>
-      </ol>
+      <div class="server-cards">
+        <div class="server-card">
+          <div class="server-rank">#1</div>
+          <div class="server-name">Valorant Official</div>
+          <div class="server-desc">Riot’s official Valorant community for competitive FPS fans.</div>
+          <a href="https://discord.gg/valorant" target="_blank" rel="noopener noreferrer" class="join-btn">Join Discord</a>
+        </div>
+        <div class="server-card">
+          <div class="server-rank">#2</div>
+          <div class="server-name">Call of Duty Community</div>
+          <div class="server-desc">Active hub for Call of Duty players, news, and tournaments.</div>
+          <a href="https://discord.gg/callofduty" target="_blank" rel="noopener noreferrer" class="join-btn">Join Discord</a>
+        </div>
+        <div class="server-card">
+          <div class="server-rank">#3</div>
+          <div class="server-name">Rainbow Six Siege</div>
+          <div class="server-desc">Dedicated to Rainbow Six Siege casual and competitive players.</div>
+          <a href="https://discord.gg/r6siege" target="_blank" rel="noopener noreferrer" class="join-btn">Join Discord</a>
+        </div>
+        <div class="server-card">
+          <div class="server-rank">#4</div>
+          <div class="server-name">Apex Legends</div>
+          <div class="server-desc">Large community for Apex Legends with matchmaking & news.</div>
+          <a href="https://discord.gg/apexlegends" target="_blank" rel="noopener noreferrer" class="join-btn">Join Discord</a>
+        </div>
+        <div class="server-card">
+          <div class="server-rank">#5</div>
+          <div class="server-name">CS:GO Lounge</div>
+          <div class="server-desc">Popular server for CS:GO players and fans worldwide.</div>
+          <a href="https://discord.gg/csgo" target="_blank" rel="noopener noreferrer" class="join-btn">Join Discord</a>
+        </div>
+      </div>
     </section>
 
-  .server-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
-    gap: 1.5em;
-    max-width: 900px;
-    margin: 2em auto 4em;
-  }
-  .server-card {
-    background: #0a1a1f;
-    border-radius: 12px;
-    box-shadow: 0 0 15px #00ff99aa;
-    padding: 1.5em;
-    color: #00ff99;
-    font-weight: 700;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    position: relative;
-  }
-  .server-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 30px #00ff99ff;
-  }
-  .server-rank {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    background: #00ff99;
-    color: #0f2027;
-    font-weight: 900;
-    font-size: 1.1rem;
-    padding: 0.25em 0.7em;
-    border-radius: 8px;
-    box-shadow: 0 0 8px #00ff99;
-  }
-  .server-name {
-    font-size: 1.5rem;
-    margin-bottom: 0.5em;
-  }
-  .server-desc {
-    font-weight: 400;
-    margin-bottom: 1.2em;
-    font-size: 1rem;
-    min-height: 48px;
-  }
-  .join-btn {
-    display: inline-block;
-    background: #00ff99;
-    color: #0f2027;
-    font-weight: 700;
-    padding: 0.6em 1.5em;
-    border-radius: 8px;
-    text-decoration: none;
-    box-shadow: 0 0 12px #00ff99;
-    transition: background-color 0.3s ease;
-  }
-  .join-btn:hover {
-    background-color: #00cc77;
-  }
-</style>
-
-<section id="top-ranked">
-  <h2>🔥 Top Ranked FPS Servers</h2>
-  <div class="server-cards">
-    <div class="server-card">
-      <div class="server-rank">#1</div>
-      <div class="server-name">Valorant Official</div>
-      <div class="server-desc">Riot’s official Valorant community for competitive FPS fans.</div>
-      <a href="https://discord.gg/valorant" target="_blank" rel="noopener noreferrer" class="join-btn">Join Discord</a>
-    </div>
-    <div class="server-card">
-      <div class="server-rank">#2</div>
-      <div class="server-name">Call of Duty Community</div>
-      <div class="server-desc">Active hub for Call of Duty players, news, and tournaments.</div>
-      <a href="https://discord.gg/callofduty" target="_blank" rel="noopener noreferrer" class="join-btn">Join Discord</a>
-    </div>
-    <div class="server-card">
-      <div class="server-rank">#3</div>
-      <div class="server-name">Rainbow Six Siege</div>
-      <div class="server-desc">Dedicated to Rainbow Six Siege casual and competitive players.</div>
-      <a href="https://discord.gg/r6siege" target="_blank" rel="noopener noreferrer" class="join-btn">Join Discord</a>
-    </div>
-    <div class="server-card">
-      <div class="server-rank">#4</div>
-      <div class="server-name">Apex Legends</div>
-      <div class="server-desc">Large community for Apex Legends with matchmaking & news.</div>
-      <a href="https://discord.gg/apexlegends" target="_blank" rel="noopener noreferrer" class="join-btn">Join Discord</a>
-    </div>
-    <div class="server-card">
-      <div class="server-rank">#5</div>
-      <div class="server-name">CS:GO Lounge</div>
-      <div class="server-desc">Popular server for CS:GO players and fans worldwide.</div>
-      <a href="https://discord.gg/csgo" target="_blank" rel="noopener noreferrer" class="join-btn">Join Discord</a>
-    </div>
-  </div>
-</section>
-
-<section id="top-ranked-overall">
-  <h2>🌍 Top Ranked Overall Discord Servers</h2>
-  <div class="server-cards">
-    <div class="server-card">
-      <div class="server-rank">#1</div>
-      <div class="server-name">Roblox</div>
-      <div class="server-desc">Official Roblox server with players, creators & fans.</div>
-      <a href="https://discord.gg/roblox" target="_blank" rel="noopener noreferrer" class="join-btn">Join Discord</a>
-    </div>
-    <div class="server-card">
-      <div class="server-rank">#2</div>
-      <div class="server-name">Valorant Official</div>
-      <div class="server-desc">Riot’s FPS community for Valorant players.</div>
-      <a href="https://discord.gg/valorant" target="_blank" rel="noopener noreferrer" class="join-btn">Join Discord</a>
-    </div>
-    <div class="server-card">
-      <div class="server-rank">#3</div>
-      <div class="server-name">Anime Soul Discord</div>
-      <div class="server-desc">Massive anime community with chats, art, & events.</div>
-      <a href="https://discord.gg/anime" target="_blank" rel="noopener noreferrer" class="join-btn">Join Discord</a>
-    </div>
-    <div class="server-card">
-      <div class="server-rank">#4</div>
-      <div class="server-name">GTA Online</div>
-      <div class="server-desc">Find crews, events, and more in GTA Online’s biggest hub.</div>
-      <a href="https://discord.gg/gtaonline" target="_blank" rel="noopener noreferrer" class="join-btn">Join Discord</a>
-    </div>
-    <div class="server-card">
-      <div class="server-rank">#5</div>
-      <div class="server-name">Growtopia</div>
-      <div class="server-desc">Community for Growtopia players with events & trading.</div>
-      <a href="https://discord.gg/growtopia" target="_blank" rel="noopener noreferrer" class="join-btn">Join Discord</a>
-    </div>
-  </div>
-</section>
+    <section id="top-ranked-overall">
+      <h2>🌍 Top Ranked Overall Discord Servers</h2>
+      <div class="server-cards">
+        <div class="server-card">
+          <div class="server-rank">#1</div>
+          <div class="server-name">Roblox</div>
+          <div class="server-desc">Official Roblox server with players, creators & fans.</div>
+          <a href="https://discord.gg/roblox" target="_blank" rel="noopener noreferrer" class="join-btn">Join Discord</a>
+        </div>
+        <div class="server-card">
+          <div class="server-rank">#2</div>
+          <div class="server-name">Valorant Official</div>
+          <div class="server-desc">Riot’s FPS community for Valorant players.</div>
+          <a href="https://discord.gg/valorant" target="_blank" rel="noopener noreferrer" class="join-btn">Join Discord</a>
+        </div>
+        <div class="server-card">
+          <div class="server-rank">#3</div>
+          <div class="server-name">Anime Soul Discord</div>
+          <div class="server-desc">Massive anime community with chats, art, & events.</div>
+          <a href="https://discord.gg/anime" target="_blank" rel="noopener noreferrer" class="join-btn">Join Discord</a>
+        </div>
+        <div class="server-card">
+          <div class="server-rank">#4</div>
+          <div class="server-name">GTA Online</div>
+          <div class="server-desc">Find crews, events, and more in GTA Online’s biggest hub.</div>
+          <a href="https://discord.gg/gtaonline" target="_blank" rel="noopener noreferrer" class="join-btn">Join Discord</a>
+        </div>
+        <div class="server-card">
+          <div class="server-rank">#5</div>
+          <div class="server-name">Growtopia</div>
+          <div class="server-desc">Community for Growtopia players with events & trading.</div>
+          <a href="https://discord.gg/growtopia" target="_blank" rel="noopener noreferrer" class="join-btn">Join Discord</a>
+        </div>
+      </div>
+    </section>
 
     <a href="https://discord.gg/youractualinvite" target="_blank" rel="noopener noreferrer" class="join-discord">
       🚀 Join our Discord
