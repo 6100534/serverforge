@@ -94,7 +94,11 @@
       color: #0f2027;
       box-shadow: 0 0 20px #00ff99;
     }
-  </style>
+  </.category.active {
+  background: #00ff99;
+  color: #0f2027;
+  box-shadow: 0 0 20px #00ff99;
+}>
 </head>
 <body>
   <nav>
@@ -120,5 +124,22 @@
       🚀 Join our Discord
     </a>
   </main>
+  <script>
+  // Select all category buttons
+  const categories = document.querySelectorAll('.category');
+
+  categories.forEach(cat => {
+    cat.addEventListener('click', () => {
+      // Remove active class from all
+      categories.forEach(c => c.classList.remove('active'));
+      // Add active class to clicked
+      cat.classList.add('active');
+
+      // Show alert with category name (replace with filtering later)
+      alert('You clicked: ' + cat.textContent);
+    });
+  });
+</script>
+
 </body>
 </html>
