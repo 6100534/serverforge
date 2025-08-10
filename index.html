@@ -11,7 +11,6 @@
       color: #00ff99;
       font-family: 'Orbitron', sans-serif;
     }
-    /* Navigation menu styles */
     nav {
       background: #0a1a1f;
       padding: 1em 2em;
@@ -76,7 +75,6 @@
       color: #0f2027;
       box-shadow: 0 0 15px #00ff99;
     }
-    /* Active category styling */
     .category.active {
       background: #00ff99;
       color: #0f2027;
@@ -100,31 +98,32 @@
       color: #0f2027;
       box-shadow: 0 0 20px #00ff99;
     }
-    /* Top Ranked section styles */
-    #top-ranked {
+    section#top-ranked,
+    section#top-ranked-overall {
       margin-top: 3em;
       text-align: left;
       max-width: 600px;
       margin-left: auto;
       margin-right: auto;
     }
-    #top-ranked h2 {
+    section#top-ranked h2,
+    section#top-ranked-overall h2 {
       text-shadow: 0 0 8px #00ff99;
       font-weight: 700;
     }
-    #top-ranked ol {
+    ol {
       color: #00ff99;
       font-weight: 700;
       padding-left: 1.2em;
     }
-    #top-ranked li {
+    ol li {
       margin: 0.8em 0;
     }
-    #top-ranked a {
+    ol li a {
       color: #00ff99;
       text-decoration: underline;
     }
-    #top-ranked a:hover {
+    ol li a:hover {
       color: #0f2027;
       background-color: #00ff99;
       border-radius: 4px;
@@ -137,7 +136,8 @@
   <nav>
     <a href="#">Home</a>
     <a href="#categories">Categories</a>
-    <a href="#top-ranked">Top Ranked</a>
+    <a href="#top-ranked">Top Ranked FPS</a>
+    <a href="#top-ranked-overall">Top Ranked Overall</a>
   </nav>
   <main>
     <h1>ServerForge</h1>
@@ -147,34 +147,58 @@
     <section id="categories" class="categories">
       <div class="category">FPS</div>
       <div class="category">RPG</div>
-      <div class="category">Casual</div>
-      <div class="category">Competitive</div>
       <div class="category">MMO</div>
       <div class="category">Strategy</div>
     </section>
 
     <section id="top-ranked">
-      <h2>🔥 Top Ranked Servers</h2>
+      <h2>🔥 Top Ranked FPS Servers</h2>
       <ol>
         <li>
-          <strong>FPS Legends</strong> — Rank #1<br />
-          <a href="https://discord.gg/fpslegends" target="_blank" rel="noopener noreferrer">Join Discord</a>
-        </li>
-<iframe
-  src="https://discord.com/widget?id=1392229914652180550&theme=dark"
-  width="350"
-  height="500"
-  allowtransparency="true"
-  frameborder="0"
-  sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts">
-</iframe>
-        <li>
-          <strong>RPG Realm</strong> — Rank #2<br />
-          <a href="https://discord.gg/rpgrealm" target="_blank" rel="noopener noreferrer">Join Discord</a>
+          <strong>Valorant Official</strong> — Rank #1<br />
+          <a href="https://discord.gg/valorant" target="_blank" rel="noopener noreferrer">Join Discord</a>
         </li>
         <li>
-          <strong>Casual Gamers Hub</strong> — Rank #3<br />
-          <a href="https://discord.gg/casualgamers" target="_blank" rel="noopener noreferrer">Join Discord</a>
+          <strong>Call of Duty Community</strong> — Rank #2<br />
+          <a href="https://discord.gg/callofduty" target="_blank" rel="noopener noreferrer">Join Discord</a>
+        </li>
+        <li>
+          <strong>Rainbow Six Siege</strong> — Rank #3<br />
+          <a href="https://discord.gg/r6siege" target="_blank" rel="noopener noreferrer">Join Discord</a>
+        </li>
+        <li>
+          <strong>Apex Legends</strong> — Rank #4<br />
+          <a href="https://discord.gg/apexlegends" target="_blank" rel="noopener noreferrer">Join Discord</a>
+        </li>
+        <li>
+          <strong>CS:GO Lounge</strong> — Rank #5<br />
+          <a href="https://discord.gg/csgo" target="_blank" rel="noopener noreferrer">Join Discord</a>
+        </li>
+      </ol>
+    </section>
+
+    <section id="top-ranked-overall">
+      <h2>🌍 Top Ranked Overall Discord Servers</h2>
+      <ol>
+        <li>
+          <strong>Roblox</strong><br />
+          <a href="https://discord.gg/roblox" target="_blank" rel="noopener noreferrer">Join Discord</a>
+        </li>
+        <li>
+          <strong>Valorant Official</strong><br />
+          <a href="https://discord.gg/valorant" target="_blank" rel="noopener noreferrer">Join Discord</a>
+        </li>
+        <li>
+          <strong>Anime Soul Discord</strong><br />
+          <a href="https://discord.gg/anime" target="_blank" rel="noopener noreferrer">Join Discord</a>
+        </li>
+        <li>
+          <strong>GTA Online</strong><br />
+          <a href="https://discord.gg/gtaonline" target="_blank" rel="noopener noreferrer">Join Discord</a>
+        </li>
+        <li>
+          <strong>Growtopia(Grow a Garden)</strong><br />
+          <a href="https://discord.gg/growtopia" target="_blank" rel="noopener noreferrer">Join Discord</a>
         </li>
       </ol>
     </section>
@@ -185,17 +209,11 @@
   </main>
 
   <script>
-    // Select all category buttons
     const categories = document.querySelectorAll('.category');
-
     categories.forEach(cat => {
       cat.addEventListener('click', () => {
-        // Remove active class from all categories
         categories.forEach(c => c.classList.remove('active'));
-        // Add active class to the clicked category
         cat.classList.add('active');
-
-        // Show alert with the category name
         alert('You clicked: ' + cat.textContent);
       });
     });
