@@ -76,6 +76,12 @@
       color: #0f2027;
       box-shadow: 0 0 15px #00ff99;
     }
+    /* Active category styling */
+    .category.active {
+      background: #00ff99;
+      color: #0f2027;
+      box-shadow: 0 0 20px #00ff99;
+    }
     a.join-discord {
       display: inline-block;
       margin-top: 2em;
@@ -94,11 +100,38 @@
       color: #0f2027;
       box-shadow: 0 0 20px #00ff99;
     }
-  </.category.active {
-  background: #00ff99;
-  color: #0f2027;
-  box-shadow: 0 0 20px #00ff99;
-}>
+    /* Top Ranked section styles */
+    #top-ranked {
+      margin-top: 3em;
+      text-align: left;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    #top-ranked h2 {
+      text-shadow: 0 0 8px #00ff99;
+      font-weight: 700;
+    }
+    #top-ranked ol {
+      color: #00ff99;
+      font-weight: 700;
+      padding-left: 1.2em;
+    }
+    #top-ranked li {
+      margin: 0.8em 0;
+    }
+    #top-ranked a {
+      color: #00ff99;
+      text-decoration: underline;
+    }
+    #top-ranked a:hover {
+      color: #0f2027;
+      background-color: #00ff99;
+      border-radius: 4px;
+      padding: 0 4px;
+      transition: background-color 0.3s ease;
+    }
+  </style>
 </head>
 <body>
   <nav>
@@ -120,26 +153,44 @@
       <div class="category">Strategy</div>
     </section>
 
-    <a href="#" target="_blank" rel="noopener noreferrer" class="join-discord">
+    <section id="top-ranked">
+      <h2>🔥 Top Ranked Servers</h2>
+      <ol>
+        <li>
+          <strong>FPS Legends</strong> — Rank #1<br />
+          <a href="https://discord.gg/fpslegends" target="_blank" rel="noopener noreferrer">Join Discord</a>
+        </li>
+        <li>
+          <strong>RPG Realm</strong> — Rank #2<br />
+          <a href="https://discord.gg/rpgrealm" target="_blank" rel="noopener noreferrer">Join Discord</a>
+        </li>
+        <li>
+          <strong>Casual Gamers Hub</strong> — Rank #3<br />
+          <a href="https://discord.gg/casualgamers" target="_blank" rel="noopener noreferrer">Join Discord</a>
+        </li>
+      </ol>
+    </section>
+
+    <a href="https://discord.gg/youractualinvite" target="_blank" rel="noopener noreferrer" class="join-discord">
       🚀 Join our Discord
     </a>
   </main>
+
   <script>
-  // Select all category buttons
-  const categories = document.querySelectorAll('.category');
+    // Select all category buttons
+    const categories = document.querySelectorAll('.category');
 
-  categories.forEach(cat => {
-    cat.addEventListener('click', () => {
-      // Remove active class from all
-      categories.forEach(c => c.classList.remove('active'));
-      // Add active class to clicked
-      cat.classList.add('active');
+    categories.forEach(cat => {
+      cat.addEventListener('click', () => {
+        // Remove active class from all categories
+        categories.forEach(c => c.classList.remove('active'));
+        // Add active class to the clicked category
+        cat.classList.add('active');
 
-      // Show alert with category name (replace with filtering later)
-      alert('You clicked: ' + cat.textContent);
+        // Show alert with the category name
+        alert('You clicked: ' + cat.textContent);
+      });
     });
-  });
-</script>
-
+  </script>
 </body>
 </html>
