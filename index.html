@@ -1,108 +1,489 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ServerForge - Top Discord Servers</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #121212;
-      color: #eee;
-      margin: 0; padding: 20px;
-      display: flex; flex-direction: column; align-items: center;
-    }
-    h1 {
-      margin-bottom: 20px;
-      color: #ff6f61;
-    }
-    .server-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
-      max-width: 900px;
-      width: 100%;
-    }
-    .server-card {
-      background: #1e1e1e;
-      border-radius: 12px;
-      box-shadow: 0 4px 8px rgba(255,111,97,0.3);
-      padding: 15px 20px;
-      width: 260px;
-      transition: transform 0.2s ease;
-      cursor: pointer;
-    }
-    .server-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 16px rgba(255,111,97,0.6);
-    }
-    .server-name {
-      font-size: 1.3em;
-      font-weight: 700;
-      margin-bottom: 5px;
-      color: #ff6f61;
-    }
-    .server-desc {
-      font-size: 0.9em;
-      margin-bottom: 10px;
-      color: #bbb;
-      min-height: 38px;
-    }
-    .server-info {
-      font-size: 0.8em;
-      color: #aaa;
-      margin-bottom: 10px;
-    }
-    .server-invite {
-      display: inline-block;
-      text-decoration: none;
-      background: #ff6f61;
-      color: white;
-      padding: 8px 15px;
-      border-radius: 8px;
-      font-weight: 600;
-      transition: background 0.3s ease;
-    }
-    .server-invite:hover {
-      background: #e65a4e;
-    }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>ServerForge — Discover & Import Discord Server Templates</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Orbitron:wght@600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg-1:#071124;
+    --bg-2:#071827;
+    --panel:#071a1f;
+    --neon-1:#00e397;
+    --neon-2:#30d0ff;
+    --muted: #9fb3b9;
+    --glass: rgba(255,255,255,0.03);
+    --card-radius:14px;
+  }
+
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    min-height:100%;
+    font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+    background: radial-gradient(1200px 600px at 10% 10%, rgba(0,227,151,0.06), transparent 6%),
+                radial-gradient(900px 400px at 90% 90%, rgba(48,208,255,0.03), transparent 6%),
+                linear-gradient(180deg,var(--bg-1),var(--bg-2) 60%);
+    color: #e6fbf3;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    padding:28px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:18px;
+  }
+
+  /* header */
+  .topbar{
+    width:100%;
+    max-width:1100px;
+    display:flex;
+    gap:18px;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .brand {
+    display:flex;
+    gap:12px;
+    align-items:center;
+  }
+  .logo {
+    width:56px;height:56px;border-radius:12px;
+    background: linear-gradient(135deg,var(--neon-1),var(--neon-2));
+    display:flex;align-items:center;justify-content:center;
+    color:#021012;font-weight:800;font-family:Orbitron,Inter;
+    box-shadow:0 6px 24px rgba(0,227,151,0.11), 0 10px 40px rgba(48,208,255,0.06);
+  }
+  .brand h1{margin:0;font-size:20px;letter-spacing:0.6px}
+  .brand p{margin:0;color:var(--muted);font-size:12px}
+
+  /* controls */
+  .controls{
+    display:flex;
+    gap:12px;
+    align-items:center;
+  }
+
+  .search {
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:var(--glass);
+    padding:8px 12px;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,0.03);
+    box-shadow:inset 0 -6px 18px rgba(0,0,0,0.35);
+  }
+  .search input{
+    background:transparent;border:0;color:inherit;outline:0;
+    width:220px;font-weight:600;
+  }
+  .tab-buttons {
+    display:flex;
+    gap:8px;
+  }
+  .tab-btn{
+    background:transparent;border:1px solid rgba(255,255,255,0.04);
+    padding:8px 12px;border-radius:10px;color:var(--muted);
+    font-weight:700;cursor:pointer;
+    transition:all .18s ease;
+  }
+  .tab-btn.active{
+    background: linear-gradient(90deg, rgba(0,227,151,0.12), rgba(48,208,255,0.06));
+    color:var(--neon-1);border-color:rgba(0,227,151,0.25);
+    box-shadow:0 6px 26px rgba(0,227,151,0.06);
+  }
+
+  /* main panels */
+  .panel {
+    width:100%;
+    max-width:1100px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
+    border:1px solid rgba(255,255,255,0.02);
+    border-radius:18px;
+    padding:18px;
+    box-shadow: 0 12px 40px rgba(2,8,12,0.6);
+    overflow:hidden;
+  }
+
+  /* categories list */
+  .categories {
+    display:flex;
+    gap:8px;
+    margin:8px 0 14px;
+    flex-wrap:wrap;
+  }
+  .category-pill {
+    padding:8px 12px;border-radius:999px;background:transparent;border:1px solid rgba(255,255,255,0.03);
+    color:var(--muted);cursor:pointer;font-weight:700;font-size:13px;
+  }
+  .category-pill.active {
+    background:linear-gradient(90deg, rgba(0,227,151,0.08), rgba(48,208,255,0.04));
+    color:var(--neon-1);border-color:rgba(0,227,151,0.22);
+  }
+
+  /* grid */
+  .grid {
+    display:grid;
+    grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+    gap:16px;
+    margin-top:12px;
+  }
+
+  /* server card */
+  .card {
+    background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(0,0,0,0.04));
+    border-radius:var(--card-radius);
+    padding:14px;
+    position:relative;
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,0.03);
+    transition: transform .18s ease, box-shadow .18s ease;
+    display:flex;flex-direction:column;gap:8px;
+  }
+  .card:hover{ transform: translateY(-8px); box-shadow: 0 18px 48px rgba(2,8,12,0.6); }
+
+  .card .rank {
+    position:absolute; right:12px; top:12px;
+    background: linear-gradient(90deg,var(--neon-1),var(--neon-2));
+    color:#021012; padding:6px 10px; border-radius:10px; font-weight:900;
+    box-shadow:0 6px 20px rgba(0,227,151,0.08);
+    font-size:13px;
+  }
+
+  .card .title {
+    display:flex;gap:12px;align-items:center;
+  }
+  .avatar {
+    width:56px;height:56px;border-radius:10px;flex:0 0 56px;background:linear-gradient(90deg,#0b1b1f,#092227);
+    display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--neon-1);font-family:Orbitron;
+    border:1px solid rgba(255,255,255,0.02);
+  }
+  .meta {display:flex;flex-direction:column;align-items:flex-start; gap:3px;}
+  .meta .name {font-weight:800;font-size:16px;}
+  .meta .sub {font-size:12px;color:var(--muted);}
+
+  .desc { color:var(--muted); font-size:13px; line-height:1.3; min-height:42px; }
+
+  .card .badges { display:flex; gap:8px; flex-wrap:wrap; margin-top:4px; }
+  .badge {
+    background: rgba(255,255,255,0.02); color:var(--muted); padding:6px 8px;border-radius:8px;font-weight:700;font-size:12px;
+  }
+  .active-dot { width:10px;height:10px;border-radius:50%; background: linear-gradient(90deg,var(--neon-1),var(--neon-2)); box-shadow:0 4px 12px rgba(0,227,151,0.12); display:inline-block; margin-right:6px; vertical-align:middle;}
+
+  .card .actions { margin-top:auto; display:flex; gap:10px; align-items:center; justify-content:space-between; }
+  .join {
+    background: linear-gradient(90deg,var(--neon-1),var(--neon-2));
+    color:#021012;padding:10px 14px;border-radius:12px;font-weight:800;text-decoration:none;
+    box-shadow:0 10px 30px rgba(0,227,151,0.06);
+  }
+  .join.secondary { background:transparent;color:var(--neon-1); border:1px solid rgba(0,227,151,0.15); padding:8px 12px; font-weight:800; border-radius:10px;}
+
+  /* fancy background grid lines */
+  .bg-grid {
+    position:fixed; inset:0; pointer-events:none; opacity:0.04; mix-blend-mode:overlay;
+    background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px, 40px 40px;
+    z-index:0;
+  }
+
+  /* responsive tweaks */
+  @media (max-width:700px){
+    .search input{width:140px}
+    .logo{width:46px;height:46px;font-size:18px}
+  }
+</style>
 </head>
 <body>
-  <h1>ServerForge - Top Discord Servers</h1>
-  <div class="server-list" id="serverList">Loading servers...</div>
 
-  <script>
-    async function fetchServers() {
-      try {
-        const res = await fetch('/api/servers');
-        if (!res.ok) throw new Error('Failed to fetch');
-        const servers = await res.json();
+<div class="bg-grid" aria-hidden="true"></div>
 
-        const list = document.getElementById('serverList');
-        list.innerHTML = '';
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">SF</div>
+    <div>
+      <h1>ServerForge</h1>
+      <p style="margin-top:6px;">Discord server templates + live trending lists</p>
+    </div>
+  </div>
 
-        servers.forEach(server => {
-          const card = document.createElement('div');
-          card.className = 'server-card';
+  <div class="controls">
+    <div class="search" title="Search servers or templates">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="opacity:.9"><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="2"/></svg>
+      <input id="q" placeholder="Search servers or templates..." />
+    </div>
 
-          card.innerHTML = `
-            <div class="server-name">${server.name}</div>
-            <div class="server-desc">${server.description}</div>
-            <div class="server-info">Category: ${server.category} | Members: ${server.members}</div>
-            <a class="server-invite" href="${server.invite}" target="_blank" rel="noopener noreferrer">Join Server</a>
-          `;
+    <div class="tab-buttons" style="margin-left:8px;">
+      <button class="tab-btn active" data-tab="top">Top Servers</button>
+      <button class="tab-btn" data-tab="templates">Templates</button>
+    </div>
+  </div>
+</header>
 
-          list.appendChild(card);
-        });
-      } catch (e) {
-        document.getElementById('serverList').textContent = 'Failed to load servers.';
-        console.error(e);
-      }
+<!-- main panel -->
+<section class="panel" id="mainPanel">
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+    <div>
+      <strong style="font-size:14px">Browse by category</strong>
+      <div class="categories" id="catList" style="margin-top:8px"></div>
+    </div>
+    <div style="text-align:right;color:var(--muted);font-weight:700">
+      <div id="lastUpdated">Last updated: —</div>
+      <div style="font-size:12px;color:var(--muted)">Auto-refresh every 12s (demo)</div>
+    </div>
+  </div>
+
+  <!-- top servers content -->
+  <div id="tab-top" class="tab-content">
+    <div class="grid" id="serversGrid"></div>
+  </div>
+
+  <!-- templates content (hidden by default) -->
+  <div id="tab-templates" class="tab-content" style="display:none">
+    <div class="grid" id="templatesGrid"></div>
+  </div>
+</section>
+
+<script>
+/* ===========================
+   CONFIG: Replace API_URL with your real endpoint when ready.
+   The mock below simulates live updates — your real API should return
+   an array of servers with fields: id, name, category, desc, invite, members, online
+   =========================== */
+
+const API_URL = null; // set to a real endpoint string to fetch real data
+const REFRESH_INTERVAL = 12000; // milliseconds
+
+/* Mock data (demo). When you have a real backend, set API_URL and ensure shape matches. */
+let mockServers = [
+  { id:'s1', name:'Roblox', category:'Roblox', desc:'Official Roblox community.', invite:'https://discord.gg/roblox', members:4200000, online:42000 },
+  { id:'s2', name:'Valorant', category:'Valorant', desc:'Official Valorant players & tournaments.', invite:'https://discord.gg/valorant', members:1500000, online:52000 },
+  { id:'s3', name:'Anime Soul', category:'Anime', desc:'Anime chats, art, watch parties.', invite:'https://discord.gg/anime', members:980000, online:8000 },
+  { id:'s4', name:'GTA Online', category:'GTA', desc:'Find crews, events & RP servers.', invite:'https://discord.gg/gtaonline', members:720000, online:6500 },
+  { id:'s5', name:'Grow a Garden', category:'Grow', desc:'Growtopia community — trade & tips.', invite:'https://discord.gg/growtopia', members:420000, online:3800 },
+];
+
+let mockTemplates = [
+  { id:'t1', name:'Pro Gamers Template', desc:'Roles, channels & tournament flow prebuilt.', url:'https://discord.new/example-template-1', preview:'https://cdn-icons-png.flaticon.com/512/906/906334.png' },
+  { id:'t2', name:'Beginner Friendly', desc:'Simple channels for casual communities.', url:'https://discord.new/example-template-2', preview:'https://cdn-icons-png.flaticon.com/512/2913/2913523.png' },
+  { id:'t3', name:'Streamer Hub', desc:'Alerts, roles & moderation ready for streamers.', url:'https://discord.new/example-template-3', preview:'https://cdn-icons-png.flaticon.com/512/732/732190.png' }
+];
+
+/* categories auto-derived from servers + templates */
+function getCategories(){
+  const set = new Set();
+  mockServers.forEach(s=>set.add(s.category));
+  mockTemplates.forEach(t=>set.add(t.name.split(' ')[0])); // template tags example
+  return Array.from(set);
+}
+
+/* render categories */
+const catList = document.getElementById('catList');
+let activeCategory = null;
+function renderCategories(){
+  const cats = getCategories();
+  catList.innerHTML = '';
+  // add "All"
+  const all = document.createElement('button');
+  all.className='category-pill' + (activeCategory===null?' active':'');
+  all.textContent='All';
+  all.onclick = ()=>{ activeCategory=null; updateActiveCategory(); filterAndRender(); };
+  catList.appendChild(all);
+  cats.forEach(c=>{
+    const btn = document.createElement('button');
+    btn.className = 'category-pill' + (activeCategory===c?' active':'');
+    btn.textContent = c;
+    btn.onclick = ()=>{ activeCategory = (activeCategory===c? null : c); updateActiveCategory(); filterAndRender(); };
+    catList.appendChild(btn);
+  });
+}
+function updateActiveCategory(){
+  Array.from(catList.children).forEach(el=>el.classList.remove('active'));
+  if(activeCategory===null) catList.children[0].classList.add('active');
+  else {
+    Array.from(catList.children).find(b=>b.textContent===activeCategory)?.classList.add('active');
+  }
+}
+
+/* render server cards */
+const serversGrid = document.getElementById('serversGrid');
+const templatesGrid = document.getElementById('templatesGrid');
+
+function renderServers(servers){
+  // sort by "score": a mix of online and members to show trending
+  const list = servers.slice().sort((a,b)=>{
+    const scoreA = (a.online||0) * 2 + (a.members||0) / 1000;
+    const scoreB = (b.online||0) * 2 + (b.members||0) / 1000;
+    return scoreB - scoreA;
+  });
+
+  serversGrid.innerHTML = '';
+  list.forEach((s, idx)=>{
+    // card
+    const card = document.createElement('div');
+    card.className='card';
+    card.dataset.name = s.name;
+    card.dataset.category = s.category;
+
+    // rank
+    const rank = document.createElement('div');
+    rank.className='rank'; rank.textContent = '#' + (idx+1);
+    card.appendChild(rank);
+
+    // title with avatar
+    const title = document.createElement('div'); title.className='title';
+    const avatar = document.createElement('div'); avatar.className='avatar';
+    avatar.textContent = s.name.slice(0,2).toUpperCase();
+    const meta = document.createElement('div'); meta.className='meta';
+    const name = document.createElement('div'); name.className='name'; name.textContent = s.name;
+    const sub = document.createElement('div'); sub.className='sub'; sub.textContent = `${(s.members||0).toLocaleString()} members • ${s.category}`;
+    meta.appendChild(name); meta.appendChild(sub);
+
+    title.appendChild(avatar); title.appendChild(meta);
+    card.appendChild(title);
+
+    // desc
+    const desc = document.createElement('div'); desc.className='desc'; desc.textContent = s.desc || '';
+    card.appendChild(desc);
+
+    // badges
+    const badges = document.createElement('div'); badges.className='badges';
+    const b1 = document.createElement('span'); b1.className='badge';
+    b1.innerHTML = `<span class="active-dot"></span> ${ (s.online||0).toLocaleString() } online`;
+    badges.appendChild(b1);
+    const b2 = document.createElement('span'); b2.className='badge'; b2.textContent = `${Math.round((s.members||0)/1000)}k members`;
+    badges.appendChild(b2);
+    card.appendChild(badges);
+
+    // actions
+    const actions = document.createElement('div'); actions.className='actions';
+    const join = document.createElement('a'); join.className='join'; join.href = s.invite || '#'; join.target='_blank'; join.textContent = 'Join';
+    const more = document.createElement('a'); more.className='join secondary'; more.href = '#'; more.textContent='Preview';
+    more.onclick = (e)=>{ e.preventDefault(); alert(`Preview: ${s.name}\n\n${s.desc}`); }
+    actions.appendChild(more); actions.appendChild(join);
+    card.appendChild(actions);
+
+    serversGrid.appendChild(card);
+  });
+}
+
+/* render templates */
+function renderTemplates(list){
+  templatesGrid.innerHTML = '';
+  list.forEach(t=>{
+    const card = document.createElement('div'); card.className='card';
+    const rank = document.createElement('div'); rank.className='rank'; rank.textContent = 'T';
+    card.appendChild(rank);
+
+    const title = document.createElement('div'); title.className='title';
+    const avatar = document.createElement('img'); avatar.className='avatar'; avatar.style.width='56px'; avatar.style.height='56px';
+    avatar.src = t.preview || 'https://cdn-icons-png.flaticon.com/512/906/906334.png';
+    avatar.alt = t.name;
+    const meta = document.createElement('div'); meta.className='meta';
+    const name = document.createElement('div'); name.className='name'; name.textContent = t.name;
+    const sub = document.createElement('div'); sub.className='sub'; sub.textContent = 'Template';
+    meta.appendChild(name); meta.appendChild(sub);
+    title.appendChild(avatar); title.appendChild(meta);
+    card.appendChild(title);
+
+    const desc = document.createElement('div'); desc.className='desc'; desc.textContent = t.desc;
+    card.appendChild(desc);
+
+    const actions = document.createElement('div'); actions.className='actions';
+    const use = document.createElement('a'); use.className='join'; use.href = t.url; use.target='_blank'; use.textContent = 'Use Template';
+    const details = document.createElement('a'); details.className='join secondary'; details.href='#'; details.textContent='Details';
+    details.onclick = (e)=>{ e.preventDefault(); alert(`${t.name}\n\n${t.desc}\n\nTemplate URL: ${t.url}`) };
+    actions.appendChild(details); actions.appendChild(use);
+    card.appendChild(actions);
+
+    templatesGrid.appendChild(card);
+  });
+}
+
+/* filtering logic (by search + category) */
+function filterAndRender(){
+  const q = (document.getElementById('q').value || '').trim().toLowerCase();
+  const cat = activeCategory;
+
+  // servers
+  const sFiltered = mockServers.filter(s=>{
+    const matchesQ = q === '' || s.name.toLowerCase().includes(q) || (s.desc||'').toLowerCase().includes(q) || (s.category||'').toLowerCase().includes(q);
+    const matchesCat = !cat || s.category === cat;
+    return matchesQ && matchesCat;
+  });
+  renderServers(sFiltered);
+
+  // templates
+  const tFiltered = mockTemplates.filter(t=>{
+    const matchesQ = q === '' || t.name.toLowerCase().includes(q) || (t.desc||'').toLowerCase().includes(q);
+    return matchesQ;
+  });
+  renderTemplates(tFiltered);
+}
+
+/* simulated "live" update: tweak random online counts to simulate trending changes */
+function simulateServerActivity(){
+  mockServers.forEach(s=>{
+    // random jitter +-8%
+    const jitter = 1 + (Math.random() - 0.45) * 0.16;
+    s.online = Math.max(0, Math.round((s.online || (s.members/100)) * jitter));
+    // small members growth
+    if(Math.random() < 0.06) s.members += Math.round(Math.random()*1200);
+  });
+}
+
+/* fetch from API (if provided), else use mock */
+async function fetchServers(){
+  if(API_URL){
+    try{
+      const res = await fetch(API_URL);
+      if(!res.ok) throw new Error('bad fetch');
+      const data = await res.json();
+      // assume data is array of servers
+      mockServers = data;
+    }catch(err){
+      console.warn('Failed fetching realtime data, falling back to mock',err);
     }
+  } else {
+    // simulate activity on mock
+    simulateServerActivity();
+  }
+  document.getElementById('lastUpdated').textContent = 'Last updated: ' + new Date().toLocaleTimeString();
+  // re-render after update
+  filterAndRender();
+}
 
-    fetchServers();
-  </script>
+/* UI interactions: tabs + search */
+document.querySelectorAll('.tab-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const tab = btn.dataset.tab;
+    document.getElementById('tab-top').style.display = (tab==='top') ? '' : 'none';
+    document.getElementById('tab-templates').style.display = (tab==='templates') ? '' : 'none';
+  });
+});
+
+document.getElementById('q').addEventListener('input', ()=>{
+  filterAndRender();
+});
+
+/* initial render */
+renderCategories();
+filterAndRender();
+
+/* periodic refresh (auto-update) */
+setInterval(()=>{ fetchServers(); }, REFRESH_INTERVAL);
+
+/* initial fetch */
+fetchServers();
+
+</script>
 </body>
 </html>
